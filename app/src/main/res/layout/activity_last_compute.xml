@@ -10,6 +10,7 @@
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="vertical"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -18,18 +19,26 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textViewLastCalculs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="30dp"
-            android:textAlignment="center" />
+            android:hint="2x4 = 8"
+            android:textAlignment="center"
+            android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/lastCompute_textviewCalcul"
+            android:id="@+id/textViewCalcul"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:hint="3x7"
+            android:textAlignment="center"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/textviewResultat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="21"
             android:textAlignment="center"
             android:textSize="30dp" />
 
@@ -40,6 +49,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:backgroundTint="@color/mainThemeButton"
+            android:gravity="center"
             android:text="@string/bouton_precedent"
             android:textSize="30dp"
             app:cornerRadius="15dp" />

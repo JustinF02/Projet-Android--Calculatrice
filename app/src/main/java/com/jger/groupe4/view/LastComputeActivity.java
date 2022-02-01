@@ -20,7 +20,7 @@ public class LastComputeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_last_compute);
         Button boutonPrecedent = findViewById(R.id.bouton_precedent);
-        TextView textViewCalcul = findViewById(R.id.lastCompute_textviewCalcul);
+        TextView textViewCalcul = findViewById(R.id.textviewResultat);
         boutonPrecedent.setOnClickListener(view -> retourneAuPrecedent());
         Intent intent =getIntent();
         premierElement = intent.getLongExtra("premierElement",0);
