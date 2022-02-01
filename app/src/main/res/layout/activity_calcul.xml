@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.CalculActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/textview_calcul"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="2x3"
+            android:textAlignment="center"
+            android:textSize="80sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="32dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="+" />
+
+            <Button
+                android:id="@+id/button_substract"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="32dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="-" />
+
+            <Button
+                android:id="@+id/button_multiply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="32dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="*" />
+
+            <Button
+                android:id="@+id/button_divide"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="32dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="/" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="1" />
+
+            <Button
+                android:id="@+id/button_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="2" />
+
+            <Button
+                android:id="@+id/button_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="4" />
+
+            <Button
+                android:id="@+id/button_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="5" />
+
+            <Button
+                android:id="@+id/button_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="6" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/button_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="7" />
+
+            <Button
+                android:id="@+id/button_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="8" />
+
+            <Button
+                android:id="@+id/button_9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="9" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/buttonDot"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text=","
+                android:textSize="30dp"
+                app:cornerRadius="15dp" />
+
+            <Button
+                android:id="@+id/button_0"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:textSize="30dp"
+                app:cornerRadius="15dp"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="0" />
+
+            <Button
+                android:id="@+id/buttonCalc2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="="
+                android:textSize="30dp"
+                app:cornerRadius="15dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

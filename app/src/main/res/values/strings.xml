@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name" translatable="false">groupe4</string>
+    <string name="bouton_calculer">Calculer</string>
+    <string name="bouton_dernier_calcul">Dernier Calcul</string>
+    <string name="bouton_precedent">Précédent</string>
+    <string name="toolbar_calculer">Calculer</string>
+    <string name="toolbar_vider">Vider</string>
+    <string name="message_valeur_trop_grande"> Valeur trop grande</string>
+    <string name="message_division_par_zero">Attention division par 0</string>
+</resources>
