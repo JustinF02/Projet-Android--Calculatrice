@@ -62,9 +62,23 @@ public class CalculActivity extends AppCompatActivity {
         Button boutonNegatif = findViewById(R.id.buttonNegative);
         boutonNegatif.setOnClickListener(view-> passeMoiEnNegatif(nombreATraiter));
 
+        //Button supprimer = findViewById(R.id.buttonDEL);
+        //supprimer.setOnClickListener(view-> supprimer(nombreATraiter));
         //Button virgule = findViewById(R.id.buttonDot);
         //virgule.setOnClickListener(view->passeMoiEnVirgule(nombreATraiter));
     }
+
+    /*
+    private void supprimer(int element) {
+        if(element !=0){
+            deuxiemeElement /=10;
+            if(deuxiemeElement == 0){
+                typeOperationEnum = null;
+            }
+        }else{
+            premierElement /= 10;
+        }
+    }*/
 
     private void passeMoiEnNegatif(int element) {
         if(element != 0) deuxiemeElement *= -1;
@@ -136,7 +150,7 @@ public class CalculActivity extends AppCompatActivity {
 
         MenuItem itemVider = menu.findItem(R.id.toolbarVider);
         itemVider.setOnMenuItemClickListener(menuItem -> videTextViewCalcul());
-        Button boutonCalculer = findViewById(R.id.buttonCalc2);
+        Button boutonCalculer = findViewById(R.id.buttonCalc);
         boutonCalculer.setOnClickListener(menuItem -> calcul());
         return super.onCreateOptionsMenu(menu);
     }

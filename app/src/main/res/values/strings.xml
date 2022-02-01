@@ -7,4 +7,5 @@
     <string name="message_valeur_trop_grande"> Valeur trop grande</string>
     <string name="message_division_par_zero">Attention division par 0</string>
     <string name="messagePasDoperation">Veuillez saisir un calcul</string>
+    <string name="del">suppr</string>
 </resources>
