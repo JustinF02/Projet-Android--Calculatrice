@@ -196,6 +196,17 @@
             android:gravity="center">
 
             <Button
+                android:id="@+id/buttonNegative"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/mainThemeButton"
+                android:text="(-1)"
+                android:textSize="30dp"
+                app:cornerRadius="15dp" />
+
+            <Button
                 android:id="@+id/buttonDot"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

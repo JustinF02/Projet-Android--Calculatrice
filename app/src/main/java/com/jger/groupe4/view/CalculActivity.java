@@ -21,6 +21,8 @@ public class CalculActivity extends AppCompatActivity {
     private TypeOperationEnum typeOperationEnum = null;
     private TextView textViewCalcul;
     private Long BORNE_HAUTE = 9999L;
+    private Long BORNE_BASSE = -9999L;
+    private int nombreATraiter = 0;
 
 
     @Override
@@ -56,9 +58,17 @@ public class CalculActivity extends AppCompatActivity {
         boutonDivide.setOnClickListener(view -> ajouteTypeOperation(TypeOperationEnum.DIVIDE));
         Button boutonMultiply = findViewById(R.id.button_multiply);
         boutonMultiply.setOnClickListener(view -> ajouteTypeOperation(TypeOperationEnum.MULTIPLY));
+        Button boutonNegatif = findViewById(R.id.buttonNegative);
+        boutonNegatif.setOnClickListener(view-> passeMoiEnNegatif(nombreATraiter));
 
+        //Button virgule = findViewById(R.id.buttonDot);
+        //virgule.setOnClickListener(view->passeMoiEnVirgule(nombreATraiter));
+    }
 
-
+    private void passeMoiEnNegatif(int element) {
+        if(element != 0) deuxiemeElement *= -1;
+        else premierElement *= -1;
+        majTextView();
     }
 
     private void ajouteTypeOperation(TypeOperationEnum typeOperation) {
@@ -76,23 +86,26 @@ public class CalculActivity extends AppCompatActivity {
                 this.typeOperationEnum=TypeOperationEnum.SUBSTRACT;
                 break;
         }
+        nombreATraiter = 1;
         majTextView();
     }
 
     private void ajouterNombre(Integer valeur){
         if(typeOperationEnum == null){
-            if(10*premierElement+valeur > BORNE_HAUTE){
+            if(10*premierElement+valeur > BORNE_HAUTE || 10*premierElement+valeur < BORNE_BASSE){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
                 premierElement = 10 * premierElement+valeur;
             }
         }else{
-            if(10*deuxiemeElement+valeur > BORNE_HAUTE){
+            if(10*deuxiemeElement+valeur > BORNE_HAUTE || 10*deuxiemeElement+valeur < BORNE_BASSE){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
                 deuxiemeElement = 10 * deuxiemeElement+valeur;
             }
         }
+
+
         majTextView();
     }
 
@@ -112,10 +125,10 @@ public class CalculActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar,menu);
 
-        MenuItem itemVider = menu.findItem(R.id.bouton_vider);
+        MenuItem itemVider = menu.findItem(R.id.toolbarVider);
         itemVider.setOnMenuItemClickListener(menuItem -> videTextViewCalcul());
-        MenuItem itemCalculer = menu.findItem(R.id.toolbarCalculer);
-        itemCalculer.setOnMenuItemClickListener(menuItem -> calcul());
+        Button boutonCalculer = findViewById(R.id.buttonCalc2);
+        boutonCalculer.setOnClickListener(menuItem -> calcul());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -157,6 +170,7 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean videTextViewCalcul() {
+        nombreATraiter = 0;
         textViewCalcul.setText("");
         premierElement = 0L;
         deuxiemeElement = 0L;

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">Calculator</string>
     <string name="bouton_calculer">Compute</string>
     <string name="bouton_dernier_calcul">Last compute</string>
     <string name="bouton_precedent">Previous</string>
-    <string name="toolbar_calculer">Compute</string>
-    <string name="toolbar_vider">Clear</string>
-    <string name="message_valeur_trop_grande"> Value too high</string>
+    <string name="toolbar_vider">CLEAR</string>
+    <string name="message_valeur_trop_grande"> Value too big</string>
     <string name="message_division_par_zero">Warning Divide by 0</string>
 
 

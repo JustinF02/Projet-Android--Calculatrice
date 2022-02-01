@@ -32,7 +32,6 @@ public class LastComputeActivity extends AppCompatActivity {
         }else{
             textViewCalcul.setText("");
         }
-
     }
 
     private void retourneAuPrecedent() {
