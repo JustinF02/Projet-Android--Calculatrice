@@ -21,8 +21,9 @@ public class CalculActivity extends AppCompatActivity {
     private TypeOperationEnum typeOperationEnum = null;
     private TextView textViewCalcul;
     private Long BORNE_HAUTE = 9999L;
-    private Long BORNE_BASSE = -9999L;
+    private Long BORNE_BASSE = 9999L;
     private int nombreATraiter = 0;
+    private int suisJeNegatif = 0;
 
 
     @Override
@@ -68,6 +69,8 @@ public class CalculActivity extends AppCompatActivity {
     private void passeMoiEnNegatif(int element) {
         if(element != 0) deuxiemeElement *= -1;
         else premierElement *= -1;
+
+        suisJeNegatif = 1;
         majTextView();
     }
 
@@ -92,20 +95,26 @@ public class CalculActivity extends AppCompatActivity {
 
     private void ajouterNombre(Integer valeur){
         if(typeOperationEnum == null){
-            if(10*premierElement+valeur > BORNE_HAUTE || 10*premierElement+valeur < BORNE_BASSE){
+            if(10*premierElement+valeur > BORNE_HAUTE || 10*premierElement+valeur < BORNE_BASSE * -1){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
-                premierElement = 10 * premierElement+valeur;
+                if(suisJeNegatif != 0){
+                    premierElement = 10 * premierElement-valeur;
+                }else{
+                    premierElement = 10 * premierElement+valeur;
+                }
             }
         }else{
-            if(10*deuxiemeElement+valeur > BORNE_HAUTE || 10*deuxiemeElement+valeur < BORNE_BASSE){
+            if(10*deuxiemeElement+valeur > BORNE_HAUTE || 10*deuxiemeElement+valeur < BORNE_BASSE * -1){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
-                deuxiemeElement = 10 * deuxiemeElement+valeur;
+                if(suisJeNegatif != 0){
+                    deuxiemeElement = 10 * deuxiemeElement-valeur;
+                }else{
+                    deuxiemeElement = 10 * deuxiemeElement+valeur;
+                }
             }
         }
-
-
         majTextView();
     }
 
@@ -134,28 +143,33 @@ public class CalculActivity extends AppCompatActivity {
 
     private boolean calcul()  {
         try {
-            Long resultat = 0L;
-            switch (typeOperationEnum) {
-                case MULTIPLY:
-                    resultat = premierElement * deuxiemeElement;
-                    break;
-                case ADD:
-                    resultat = premierElement + deuxiemeElement;
-                    break;
-                case DIVIDE:
-                    if(deuxiemeElement == 0){
-                        throw new DivisionException();
-                    }else{
-                        resultat = premierElement / deuxiemeElement;
-                    }
-                    break;
-                case SUBSTRACT:
-                    resultat = premierElement - deuxiemeElement;
-                    break;
+            if (typeOperationEnum == null) throw new DivisionException();
+            try {
+                Long resultat = 0L;
+                switch (typeOperationEnum) {
+                    case MULTIPLY:
+                        resultat = premierElement * deuxiemeElement;
+                        break;
+                    case ADD:
+                        resultat = premierElement + deuxiemeElement;
+                        break;
+                    case DIVIDE:
+                        if (deuxiemeElement == 0) {
+                            throw new DivisionException();
+                        } else {
+                            resultat = premierElement / deuxiemeElement;
+                        }
+                        break;
+                    case SUBSTRACT:
+                        resultat = premierElement - deuxiemeElement;
+                        break;
+                }
+                ouvreLastComputeActivity(resultat);
+            } catch (DivisionException exception) {
+                Toast.makeText(this, getString(R.string.message_division_par_zero), Toast.LENGTH_LONG).show();
             }
-            ouvreLastComputeActivity(resultat);
-        }catch (DivisionException exception){
-            Toast.makeText(this,getString(R.string.message_division_par_zero),Toast.LENGTH_LONG).show();
+        }catch (DivisionException exception2){
+            Toast.makeText(this, getString(R.string.messagePasDoperation), Toast.LENGTH_LONG).show();
         }
         return true;
     }
@@ -171,6 +185,7 @@ public class CalculActivity extends AppCompatActivity {
 
     private boolean videTextViewCalcul() {
         nombreATraiter = 0;
+        suisJeNegatif = 0;
         textViewCalcul.setText("");
         premierElement = 0L;
         deuxiemeElement = 0L;
