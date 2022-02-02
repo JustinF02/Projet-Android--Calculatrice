@@ -23,7 +23,7 @@ public class CalculActivity extends AppCompatActivity {
     private Long BORNE_HAUTE = 9999L;
     private Long BORNE_BASSE = 9999L;
     private int nombreATraiter = 0;
-    private int suisJeNegatif = 0;
+    private boolean suisJeNegatif = false;
 
 
     @Override
@@ -60,7 +60,7 @@ public class CalculActivity extends AppCompatActivity {
         Button boutonMultiply = findViewById(R.id.button_multiply);
         boutonMultiply.setOnClickListener(view -> ajouteTypeOperation(TypeOperationEnum.MULTIPLY));
         Button boutonNegatif = findViewById(R.id.buttonNegative);
-        boutonNegatif.setOnClickListener(view-> passeMoiEnNegatif(nombreATraiter));
+        boutonNegatif.setOnClickListener(view-> InverseMoi(nombreATraiter));
 
         //Button supprimer = findViewById(R.id.buttonDEL);
         //supprimer.setOnClickListener(view-> supprimer(nombreATraiter));
@@ -80,11 +80,11 @@ public class CalculActivity extends AppCompatActivity {
         }
     }*/
 
-    private void passeMoiEnNegatif(int element) {
+    private void InverseMoi(int element) {
         if(element != 0) deuxiemeElement *= -1;
         else premierElement *= -1;
 
-        suisJeNegatif = 1;
+        suisJeNegatif = !suisJeNegatif;
         majTextView();
     }
 
@@ -112,7 +112,7 @@ public class CalculActivity extends AppCompatActivity {
             if(10*premierElement+valeur > BORNE_HAUTE || 10*premierElement+valeur < BORNE_BASSE * -1){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
-                if(suisJeNegatif != 0){
+                if(suisJeNegatif != false){
                     premierElement = 10 * premierElement-valeur;
                 }else{
                     premierElement = 10 * premierElement+valeur;
@@ -122,7 +122,7 @@ public class CalculActivity extends AppCompatActivity {
             if(10*deuxiemeElement+valeur > BORNE_HAUTE || 10*deuxiemeElement+valeur < BORNE_BASSE * -1){
                 Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
             }else{
-                if(suisJeNegatif != 0){
+                if(suisJeNegatif != false){
                     deuxiemeElement = 10 * deuxiemeElement-valeur;
                 }else{
                     deuxiemeElement = 10 * deuxiemeElement+valeur;
@@ -199,7 +199,7 @@ public class CalculActivity extends AppCompatActivity {
 
     private boolean videTextViewCalcul() {
         nombreATraiter = 0;
-        suisJeNegatif = 0;
+        suisJeNegatif = false;
         textViewCalcul.setText("");
         premierElement = 0L;
         deuxiemeElement = 0L;
