@@ -16,14 +16,21 @@ import com.jger.groupe4.R;
 import com.jger.groupe4.model.TypeOperationEnum;
 
 public class CalculActivity extends AppCompatActivity {
-    private Long premierElement =0L;
-    private Long deuxiemeElement=0L;
-    private TypeOperationEnum typeOperationEnum = null;
-    private TextView textViewCalcul;
-    private Long BORNE_HAUTE = 9999L;
-    private Long BORNE_BASSE = 9999L;
-    private int nombreATraiter = 0;
+    private Double premierElement =0.0;
+    private Double deuxiemeElement=0.0;
+    private Double decimalePremierElement = 0.0;
+    private Double decimaleDeuxiemeElement = 0.0;
+    private Boolean virgulePremierElement = false;
+    private Boolean VirguleDeuxiemeElement = false;
+    private int CoeffChiffreApresVirgulePREMIER = 1;
+    private int CoeffChiffreApresVirguleDEUXIEME = 1;
     private boolean suisJeNegatif = false;
+    private TypeOperationEnum typeOperationEnum = null;
+
+    private TextView textViewCalcul;
+    private int BORNE = 9999;
+    private int BorneVirgule = 99;
+
 
 
     @Override
@@ -60,13 +67,18 @@ public class CalculActivity extends AppCompatActivity {
         Button boutonMultiply = findViewById(R.id.button_multiply);
         boutonMultiply.setOnClickListener(view -> ajouteTypeOperation(TypeOperationEnum.MULTIPLY));
         Button boutonNegatif = findViewById(R.id.buttonNegative);
-        boutonNegatif.setOnClickListener(view-> InverseMoi(nombreATraiter));
+        boutonNegatif.setOnClickListener(view-> InverseMoi());
 
         //Button supprimer = findViewById(R.id.buttonDEL);
-        //supprimer.setOnClickListener(view-> supprimer(nombreATraiter));
-        //Button virgule = findViewById(R.id.buttonDot);
-        //virgule.setOnClickListener(view->passeMoiEnVirgule(nombreATraiter));
+        //supprimer.setOnClickListener(view-> supprimer());
+        Button virgule = findViewById(R.id.buttonDot);
+        virgule.setOnClickListener(view->passeMoiEnVirgule());
+
+        Button boutonCalculer = findViewById(R.id.buttonCalc);
+        boutonCalculer.setOnClickListener(menuItem -> calcul());
+
     }
+
 
     /*
     private void supprimer(int element) {
@@ -79,9 +91,14 @@ public class CalculActivity extends AppCompatActivity {
             premierElement /= 10;
         }
     }*/
-
-    private void InverseMoi(int element) {
-        if(element != 0) deuxiemeElement *= -1;
+    private void passeMoiEnVirgule() {
+        if(typeOperationEnum == null){
+            virgulePremierElement = true;
+        }
+        else{VirguleDeuxiemeElement = true;}
+    }
+    private void InverseMoi() {
+        if(typeOperationEnum == null) deuxiemeElement *= -1;
         else premierElement *= -1;
 
         suisJeNegatif = !suisJeNegatif;
@@ -103,30 +120,50 @@ public class CalculActivity extends AppCompatActivity {
                 this.typeOperationEnum=TypeOperationEnum.SUBSTRACT;
                 break;
         }
-        nombreATraiter = 1;
         majTextView();
     }
 
     private void ajouterNombre(Integer valeur){
         if(typeOperationEnum == null){
-            if(10*premierElement+valeur > BORNE_HAUTE || 10*premierElement+valeur < BORNE_BASSE * -1){
-                Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
-            }else{
-                if(suisJeNegatif != false){
-                    premierElement = 10 * premierElement-valeur;
+            //On traite le premier nombre.
+            if(virgulePremierElement != true){
+                //On traite la partie unitaire
+                if(10*premierElement+valeur > BORNE || 10*premierElement+valeur < BORNE * -1){
+                    //Dans le cas où le nombre avec l'ajout d'une valeur dépasse la borne.
+                    Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
                 }else{
-                    premierElement = 10 * premierElement+valeur;
+                    if(suisJeNegatif != false){
+                        //Dans le cas ou le nombre est négatif, on va soustraire la valeur pour l'ajouter
+                        premierElement = 10 * premierElement-valeur;
+                    }else{
+                        //et inversement.
+                        premierElement = 10 * premierElement+valeur;
+                    }
                 }
+            }else{
+                //On traite la partie decimale.
+                if(10*decimalePremierElement + valeur > BorneVirgule || 10* decimalePremierElement < BorneVirgule * -1){
+                    Toast.makeText(this, getString(R.string.message_valeur_trop_grande), Toast.LENGTH_LONG).show();
+                }
+                else{decimalePremierElement = 10*decimalePremierElement+valeur; CoeffChiffreApresVirgulePREMIER *=10;}
             }
         }else{
-            if(10*deuxiemeElement+valeur > BORNE_HAUTE || 10*deuxiemeElement+valeur < BORNE_BASSE * -1){
-                Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
-            }else{
-                if(suisJeNegatif != false){
-                    deuxiemeElement = 10 * deuxiemeElement-valeur;
+            //On traite le second nombre.
+            if(VirguleDeuxiemeElement != true){
+                if(10*deuxiemeElement+valeur > BORNE){
+                    Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
                 }else{
-                    deuxiemeElement = 10 * deuxiemeElement+valeur;
+                    if(suisJeNegatif != false){
+                        deuxiemeElement = 10 * deuxiemeElement-valeur;
+                    }else{
+                        deuxiemeElement = 10 * deuxiemeElement+valeur;
+                    }
                 }
+            }else{
+                if(10*decimaleDeuxiemeElement + valeur > BorneVirgule){
+                    Toast.makeText(this, getString(R.string.message_valeur_trop_grande), Toast.LENGTH_LONG).show();
+                }
+                else{decimaleDeuxiemeElement = 10*decimaleDeuxiemeElement+valeur; CoeffChiffreApresVirguleDEUXIEME*=10;}
             }
         }
         majTextView();
@@ -134,10 +171,12 @@ public class CalculActivity extends AppCompatActivity {
 
     private void majTextView() {
         String valeurAAfficher = "";
+        Double resultatProvisoire = premierElement + (decimalePremierElement/CoeffChiffreApresVirgulePREMIER);
         if(typeOperationEnum == null){
-            valeurAAfficher = premierElement.toString();
+            valeurAAfficher = resultatProvisoire.toString();
         }else{
-            valeurAAfficher = premierElement + " "+ typeOperationEnum.getSymbol()+" "+ deuxiemeElement;
+            Double resultatProvisoire2 = deuxiemeElement + (decimaleDeuxiemeElement/CoeffChiffreApresVirguleDEUXIEME);
+            valeurAAfficher = resultatProvisoire + " "+ typeOperationEnum.getSymbol()+" "+ resultatProvisoire2;
         }
         textViewCalcul.setText(valeurAAfficher);
     }
@@ -150,8 +189,6 @@ public class CalculActivity extends AppCompatActivity {
 
         MenuItem itemVider = menu.findItem(R.id.toolbarVider);
         itemVider.setOnMenuItemClickListener(menuItem -> videTextViewCalcul());
-        Button boutonCalculer = findViewById(R.id.buttonCalc);
-        boutonCalculer.setOnClickListener(menuItem -> calcul());
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -159,7 +196,9 @@ public class CalculActivity extends AppCompatActivity {
         try {
             if (typeOperationEnum == null) throw new DivisionException();
             try {
-                Long resultat = 0L;
+                Double resultat = 0.0;
+                premierElement += decimalePremierElement / CoeffChiffreApresVirgulePREMIER;
+                deuxiemeElement += decimaleDeuxiemeElement / CoeffChiffreApresVirguleDEUXIEME;
                 switch (typeOperationEnum) {
                     case MULTIPLY:
                         resultat = premierElement * deuxiemeElement;
@@ -188,7 +227,7 @@ public class CalculActivity extends AppCompatActivity {
         return true;
     }
 
-    private void ouvreLastComputeActivity(Long resultat) {
+    private void ouvreLastComputeActivity(Double resultat) {
         Intent intent = new Intent(this, LastComputeActivity.class);
         intent.putExtra("premierElement",premierElement);
         intent.putExtra("deuxiemeElement",deuxiemeElement);
@@ -198,12 +237,18 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean videTextViewCalcul() {
-        nombreATraiter = 0;
         suisJeNegatif = false;
         textViewCalcul.setText("");
-        premierElement = 0L;
-        deuxiemeElement = 0L;
+        premierElement = 0.0;
+        deuxiemeElement = 0.0;
         typeOperationEnum = null;
+        virgulePremierElement = false;
+        VirguleDeuxiemeElement = false;
+        CoeffChiffreApresVirgulePREMIER = 1;
+        CoeffChiffreApresVirguleDEUXIEME = 1;
+        decimalePremierElement = 0.0;
+        decimaleDeuxiemeElement =0.0;
+
         return true;
     }
 }

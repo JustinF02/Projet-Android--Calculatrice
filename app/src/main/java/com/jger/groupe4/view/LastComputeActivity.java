@@ -10,10 +10,10 @@ import android.widget.TextView;
 import com.jger.groupe4.R;
 
 public class LastComputeActivity extends AppCompatActivity {
-    private Long premierElement = 0L;
-    private Long deuxiemeElement = 0L;
+    private Double premierElement = 0.0;
+    private Double deuxiemeElement = 0.0;
     private String symbol;
-    private Long resultat = 0L;
+    private Double resultat = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,10 +23,10 @@ public class LastComputeActivity extends AppCompatActivity {
         TextView textViewCalcul = findViewById(R.id.textviewResultat);
         boutonPrecedent.setOnClickListener(view -> retourneAuPrecedent());
         Intent intent =getIntent();
-        premierElement = intent.getLongExtra("premierElement",0);
-        deuxiemeElement = intent.getLongExtra("deuxiemeElement",0);
+        premierElement = intent.getDoubleExtra("premierElement",0.0);
+        deuxiemeElement = intent.getDoubleExtra("deuxiemeElement",0.0);
         symbol = intent.getStringExtra("operationSymbol");
-        resultat = intent.getLongExtra("resultat",0L);
+        resultat = intent.getDoubleExtra("resultat",0.0);
         if(symbol != null){
             textViewCalcul.setText(premierElement +" "+symbol+" "+deuxiemeElement +" = "+resultat);
         }else{
