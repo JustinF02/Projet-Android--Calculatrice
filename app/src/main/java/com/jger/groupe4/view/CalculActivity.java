@@ -99,8 +99,8 @@ public class CalculActivity extends AppCompatActivity {
         else{VirguleDeuxiemeElement = true;}
     }
     private void InverseMoi() {
-        if(typeOperationEnum == null) {deuxiemeElement *= -1;suisJeNegatifPremier = !suisJeNegatifPremier;}
-        else {premierElement *= -1;suisJeNegatifDeuxieme = !suisJeNegatifDeuxieme;}
+        if(typeOperationEnum == null) {premierElement *= -1;suisJeNegatifPremier = !suisJeNegatifPremier;}
+        else {deuxiemeElement *= -1;suisJeNegatifDeuxieme = !suisJeNegatifDeuxieme;}
 
         majTextView();
     }
