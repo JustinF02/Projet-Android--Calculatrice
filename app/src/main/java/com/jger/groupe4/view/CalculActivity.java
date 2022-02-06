@@ -16,15 +16,16 @@ import com.jger.groupe4.R;
 import com.jger.groupe4.model.TypeOperationEnum;
 
 public class CalculActivity extends AppCompatActivity {
-    private Double premierElement =0.0;
+    private Double premierElement = 0.0;
     private Double deuxiemeElement=0.0;
     private Double decimalePremierElement = 0.0;
     private Double decimaleDeuxiemeElement = 0.0;
     private Boolean virgulePremierElement = false;
     private Boolean VirguleDeuxiemeElement = false;
-    private int CoeffChiffreApresVirgulePREMIER = 1;
-    private int CoeffChiffreApresVirguleDEUXIEME = 1;
-    private boolean suisJeNegatif = false;
+    private int CoeffChiffreApresVirgulePREMIER = 10;
+    private int CoeffChiffreApresVirguleDEUXIEME = 10;
+    private boolean suisJeNegatifPremier = false;
+    private boolean suisJeNegatifDeuxieme = false;
     private TypeOperationEnum typeOperationEnum = null;
 
     private TextView textViewCalcul;
@@ -98,10 +99,9 @@ public class CalculActivity extends AppCompatActivity {
         else{VirguleDeuxiemeElement = true;}
     }
     private void InverseMoi() {
-        if(typeOperationEnum == null) deuxiemeElement *= -1;
-        else premierElement *= -1;
+        if(typeOperationEnum == null) {deuxiemeElement *= -1;suisJeNegatifPremier = !suisJeNegatifPremier;}
+        else {premierElement *= -1;suisJeNegatifDeuxieme = !suisJeNegatifDeuxieme;}
 
-        suisJeNegatif = !suisJeNegatif;
         majTextView();
     }
 
@@ -132,7 +132,7 @@ public class CalculActivity extends AppCompatActivity {
                     //Dans le cas où le nombre avec l'ajout d'une valeur dépasse la borne.
                     Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
                 }else{
-                    if(suisJeNegatif != false){
+                    if(suisJeNegatifPremier != false){
                         //Dans le cas ou le nombre est négatif, on va soustraire la valeur pour l'ajouter
                         premierElement = 10 * premierElement-valeur;
                     }else{
@@ -142,10 +142,20 @@ public class CalculActivity extends AppCompatActivity {
                 }
             }else{
                 //On traite la partie decimale.
-                if(10*decimalePremierElement + valeur > BorneVirgule || 10* decimalePremierElement < BorneVirgule * -1){
+                if(10*decimalePremierElement + valeur > BorneVirgule){
                     Toast.makeText(this, getString(R.string.message_valeur_trop_grande), Toast.LENGTH_LONG).show();
                 }
-                else{decimalePremierElement = 10*decimalePremierElement+valeur; CoeffChiffreApresVirgulePREMIER *=10;}
+                else{
+                    decimalePremierElement = 10*decimalePremierElement+valeur;
+                    Integer truc1 = (int)((double)premierElement);
+                    premierElement = (double)truc1;
+                    if(suisJeNegatifPremier == true){
+                        premierElement -= decimalePremierElement/CoeffChiffreApresVirgulePREMIER;
+                    }else{
+                        premierElement += decimalePremierElement/CoeffChiffreApresVirgulePREMIER;
+                    }
+                    CoeffChiffreApresVirgulePREMIER *=10;
+                }
             }
         }else{
             //On traite le second nombre.
@@ -153,7 +163,7 @@ public class CalculActivity extends AppCompatActivity {
                 if(10*deuxiemeElement+valeur > BORNE){
                     Toast.makeText(this,getString(R.string.message_valeur_trop_grande),Toast.LENGTH_LONG).show();
                 }else{
-                    if(suisJeNegatif != false){
+                    if(suisJeNegatifDeuxieme != false){
                         deuxiemeElement = 10 * deuxiemeElement-valeur;
                     }else{
                         deuxiemeElement = 10 * deuxiemeElement+valeur;
@@ -163,7 +173,17 @@ public class CalculActivity extends AppCompatActivity {
                 if(10*decimaleDeuxiemeElement + valeur > BorneVirgule){
                     Toast.makeText(this, getString(R.string.message_valeur_trop_grande), Toast.LENGTH_LONG).show();
                 }
-                else{decimaleDeuxiemeElement = 10*decimaleDeuxiemeElement+valeur; CoeffChiffreApresVirguleDEUXIEME*=10;}
+                else{
+                    decimaleDeuxiemeElement = 10*decimaleDeuxiemeElement+valeur;
+                    Integer truc2 = (int)((double)deuxiemeElement);
+                    deuxiemeElement = (double)truc2;
+                    if(suisJeNegatifDeuxieme == true){
+                        deuxiemeElement -= decimaleDeuxiemeElement/CoeffChiffreApresVirguleDEUXIEME;
+                    }else{
+                        deuxiemeElement += decimaleDeuxiemeElement/CoeffChiffreApresVirguleDEUXIEME;
+                    }
+                    CoeffChiffreApresVirguleDEUXIEME *= 10;
+                }
             }
         }
         majTextView();
@@ -171,12 +191,10 @@ public class CalculActivity extends AppCompatActivity {
 
     private void majTextView() {
         String valeurAAfficher = "";
-        Double resultatProvisoire = premierElement + (decimalePremierElement/CoeffChiffreApresVirgulePREMIER);
         if(typeOperationEnum == null){
-            valeurAAfficher = resultatProvisoire.toString();
+            valeurAAfficher = premierElement.toString();
         }else{
-            Double resultatProvisoire2 = deuxiemeElement + (decimaleDeuxiemeElement/CoeffChiffreApresVirguleDEUXIEME);
-            valeurAAfficher = resultatProvisoire + " "+ typeOperationEnum.getSymbol()+" "+ resultatProvisoire2;
+            valeurAAfficher = premierElement + " "+ typeOperationEnum.getSymbol()+" "+ deuxiemeElement;
         }
         textViewCalcul.setText(valeurAAfficher);
     }
@@ -197,8 +215,6 @@ public class CalculActivity extends AppCompatActivity {
             if (typeOperationEnum == null) throw new DivisionException();
             try {
                 Double resultat = 0.0;
-                premierElement += decimalePremierElement / CoeffChiffreApresVirgulePREMIER;
-                deuxiemeElement += decimaleDeuxiemeElement / CoeffChiffreApresVirguleDEUXIEME;
                 switch (typeOperationEnum) {
                     case MULTIPLY:
                         resultat = premierElement * deuxiemeElement;
@@ -237,15 +253,16 @@ public class CalculActivity extends AppCompatActivity {
     }
 
     private boolean videTextViewCalcul() {
-        suisJeNegatif = false;
+        suisJeNegatifPremier = false;
+        suisJeNegatifDeuxieme = false;
         textViewCalcul.setText("");
         premierElement = 0.0;
         deuxiemeElement = 0.0;
         typeOperationEnum = null;
         virgulePremierElement = false;
         VirguleDeuxiemeElement = false;
-        CoeffChiffreApresVirgulePREMIER = 1;
-        CoeffChiffreApresVirguleDEUXIEME = 1;
+        CoeffChiffreApresVirgulePREMIER = 10;
+        CoeffChiffreApresVirguleDEUXIEME = 10;
         decimalePremierElement = 0.0;
         decimaleDeuxiemeElement =0.0;
 
