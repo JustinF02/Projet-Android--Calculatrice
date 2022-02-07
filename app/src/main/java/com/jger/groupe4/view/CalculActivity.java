@@ -76,7 +76,7 @@ public class CalculActivity extends AppCompatActivity {
         virgule.setOnClickListener(view->passeMoiEnVirgule());
 
         Button boutonCalculer = findViewById(R.id.buttonCalc);
-        boutonCalculer.setOnClickListener(menuItem -> calcul());
+        boutonCalculer.setOnClickListener(view -> calcul());
 
     }
 
@@ -234,6 +234,10 @@ public class CalculActivity extends AppCompatActivity {
                         break;
                 }
                 ouvreLastComputeActivity(resultat);
+                premierElement = resultat;
+                deuxiemeElement = 0.0;
+                typeOperationEnum = null;
+                majTextView();
             } catch (DivisionException exception) {
                 Toast.makeText(this, getString(R.string.message_division_par_zero), Toast.LENGTH_LONG).show();
             }
