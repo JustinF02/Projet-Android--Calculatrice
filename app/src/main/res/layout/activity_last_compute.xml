@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textViewLastCalculs"
+            android:id="@+id/nbOperations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="2x4 = 8"
@@ -27,18 +27,10 @@
             android:textSize="30dp" />
 
         <TextView
-            android:id="@+id/textViewCalcul"
+            android:id="@+id/derniereOperation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="3x7"
-            android:textAlignment="center"
-            android:textSize="30dp" />
-
-        <TextView
-            android:id="@+id/textviewResultat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="21"
             android:textAlignment="center"
             android:textSize="30dp" />
 

@@ -11,9 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jger.groupe4.database.CalculDao;
+import com.jger.groupe4.database.ComputeBaseHelper;
 import com.jger.groupe4.exception.DivisionException;
 import com.jger.groupe4.R;
+import com.jger.groupe4.model.Entities.Calcul;
 import com.jger.groupe4.model.TypeOperationEnum;
+import com.jger.groupe4.service.CalculService;
 
 public class CalculActivity extends AppCompatActivity {
     private Double premierElement = 0.0;
@@ -31,13 +35,14 @@ public class CalculActivity extends AppCompatActivity {
     private TextView textViewCalcul;
     private int BORNE = 9999;
     private int BorneVirgule = 99;
-
+    CalculService calculService;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul);
+        calculService = new CalculService(new CalculDao(new ComputeBaseHelper(this)));
         textViewCalcul = findViewById(R.id.textview_calcul);
         Button bouton1 = findViewById(R.id.button_1);
         bouton1.setOnClickListener(view -> ajouterNombre(1));
@@ -233,11 +238,19 @@ public class CalculActivity extends AppCompatActivity {
                         resultat = premierElement - deuxiemeElement;
                         break;
                 }
+                Calcul calcul = new Calcul();
+                calcul.setPremierElement(premierElement);
+                calcul.setDeuxiemeElement(deuxiemeElement);
+                calcul.setSymbol(typeOperationEnum.toString());
+                calcul.setResultat(resultat);
+                calculService.storeInDb(calcul);
+
                 ouvreLastComputeActivity(resultat);
                 premierElement = resultat;
                 deuxiemeElement = 0.0;
                 typeOperationEnum = null;
                 majTextView();
+
             } catch (DivisionException exception) {
                 Toast.makeText(this, getString(R.string.message_division_par_zero), Toast.LENGTH_LONG).show();
             }
