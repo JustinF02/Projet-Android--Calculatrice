@@ -13,7 +13,7 @@ public class ComputeBaseHelper extends DataBaseHelper {
     protected String getCreationSql() {
 
         return "CREATE TABLE IF NOT EXISTS historique (" +
-                "id" + " INTEGER NOT NULL," +
+                "id" + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 CalculDao.clePremierElement + " DOUBLE NOT NULL, " +
                 CalculDao.cleDeuxiemeElement + " DOUBLE NOT NULL," +
                 CalculDao.cleSymbol + " VARCHAR(255) NOT NULL," +

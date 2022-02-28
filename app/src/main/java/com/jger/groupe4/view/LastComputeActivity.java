@@ -26,6 +26,7 @@ public class LastComputeActivity extends AppCompatActivity {
         calculService = new CalculService(new CalculDao(new ComputeBaseHelper(this)));
         Button boutonPrecedent = findViewById(R.id.bouton_precedent);
         TextView textViewCalcul = findViewById(R.id.derniereOperation);
+        TextView textViewRESULTAT = findViewById(R.id.derniereOperationRESULTAT);
         TextView textViewNombreCalcul = findViewById(R.id.nbOperations);
         boutonPrecedent.setOnClickListener(view -> retourneAuPrecedent());
         Intent intent =getIntent();
@@ -33,10 +34,14 @@ public class LastComputeActivity extends AppCompatActivity {
         deuxiemeElement = intent.getDoubleExtra("deuxiemeElement",0.0);
         symbol = intent.getStringExtra("operationSymbol");
         resultat = intent.getDoubleExtra("resultat",0.0);
+
         textViewNombreCalcul.setText("Il y a " + calculService.getCalculCount() + " calculs réalisées");
-        textViewCalcul.setText(premierElement + " " + symbol + " " + deuxiemeElement + " = " + resultat);
+        textViewCalcul.setText(premierElement + " " + symbol + " " + deuxiemeElement);
+        textViewRESULTAT.setText(" = " + resultat);
+
         if(symbol != null){
-            textViewCalcul.setText(premierElement +" "+symbol+" "+deuxiemeElement +" = "+resultat);
+            textViewCalcul.setText(premierElement +" "+symbol+" "+deuxiemeElement);
+            textViewRESULTAT.setText(" = " + resultat);
         }else{
             textViewCalcul.setText("");
         }
