@@ -3,6 +3,7 @@ package com.jger.groupe4.database;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.jger.groupe4.model.Entities.BaseEntity;
 

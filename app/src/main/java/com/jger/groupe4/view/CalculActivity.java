@@ -238,14 +238,15 @@ public class CalculActivity extends AppCompatActivity {
                         resultat = premierElement - deuxiemeElement;
                         break;
                 }
+
                 Calcul calcul = new Calcul();
                 calcul.setPremierElement(premierElement);
                 calcul.setDeuxiemeElement(deuxiemeElement);
-                calcul.setSymbol(typeOperationEnum.toString());
+                calcul.setSymbol(typeOperationEnum.getSymbol());
                 calcul.setResultat(resultat);
                 calculService.storeInDb(calcul);
 
-                ouvreLastComputeActivity(resultat);
+                ouvreLastComputeActivity();
                 premierElement = resultat;
                 deuxiemeElement = 0.0;
                 typeOperationEnum = null;
@@ -260,12 +261,17 @@ public class CalculActivity extends AppCompatActivity {
         return true;
     }
 
-    private void ouvreLastComputeActivity(Double resultat) {
+    private void ouvreLastComputeActivity() {
+        /*
         Intent intent = new Intent(this, LastComputeActivity.class);
         intent.putExtra("premierElement",premierElement);
         intent.putExtra("deuxiemeElement",deuxiemeElement);
         intent.putExtra("operationSymbol",typeOperationEnum.getSymbol());
-        intent.putExtra("resultat",resultat);
+        intent.putExtra("resultat",calcul.getResultat());
+
+
+         */
+        Intent intent = new Intent(this, LastComputeActivity.class);
         startActivity(intent);
     }
 

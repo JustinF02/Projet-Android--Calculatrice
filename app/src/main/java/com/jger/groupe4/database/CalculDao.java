@@ -31,7 +31,7 @@ public class CalculDao  extends BaseDao<Calcul>{
     @Override
     protected Calcul getEntity(Cursor cursor) {
         Calcul calcul = new Calcul();
-        cursor.moveToFirst();
+
 
         Integer indexPremierElement = cursor.getColumnIndex(clePremierElement);
         Integer indexDeuxiemeElement= cursor.getColumnIndex(cleDeuxiemeElement);

@@ -17,4 +17,8 @@ public class CalculService {
     public void storeInDb(Calcul calcul){
         calculDao.create(calcul);
     }
+
+    public Calcul getLast(){
+        return  calculDao.lastOrNull();
+    }
 }
