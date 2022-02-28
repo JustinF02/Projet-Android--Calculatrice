@@ -22,7 +22,7 @@
             android:id="@+id/nbOperations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="2x4 = 8"
+            android:hint="il y a  0 calcul"
             android:textAlignment="center"
             android:textSize="30sp" />
 
@@ -38,7 +38,7 @@
             android:id="@+id/derniereOperationRESULTAT"
             android:layout_width="match_parent"
             android:layout_height="118dp"
-            android:hint="3x7"
+            android:hint="21"
             android:textAlignment="center"
             android:textSize="70sp" />
 

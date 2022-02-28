@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -38,21 +41,34 @@ public class LastComputeActivity extends AppCompatActivity {
         symbol = intent.getStringExtra("operationSymbol");
         resultat = intent.getDoubleExtra("resultat",0.0);
          */
+
         //-----------
         Calcul lastCalcul = calculService.getLast();
         //-----------
 
-        textViewNombreCalcul.setText("Il y a " + calculService.getCalculCount() + " calculs réalisées");
-        textViewCalcul.setText(lastCalcul.getPremierElement() +" "+lastCalcul.getSymbol()+" "+lastCalcul.getDeuxiemeElement());
-        textViewRESULTAT.setText(" = " + lastCalcul.getResultat());
-
-
-        if(lastCalcul.getSymbol() != null){
+        if(lastCalcul == null){
+            textViewCalcul.setText("");
+            textViewRESULTAT.setText("");
+        }else{
+            textViewNombreCalcul.setText("Il y a " + calculService.getCalculCount() + " calculs réalisées");
             textViewCalcul.setText(lastCalcul.getPremierElement() +" "+lastCalcul.getSymbol()+" "+lastCalcul.getDeuxiemeElement());
             textViewRESULTAT.setText(" = " + lastCalcul.getResultat());
-        }else{
-            textViewCalcul.setText("");
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.toolbar,menu);
+
+        MenuItem itemVider = menu.findItem(R.id.toolbarVider);
+        itemVider.setOnMenuItemClickListener(menuItem -> videTable());
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    private boolean videTable() {
+        calculService.clearTable();
+        retourneAuPrecedent();
+        return true;
     }
 
     private void retourneAuPrecedent() {

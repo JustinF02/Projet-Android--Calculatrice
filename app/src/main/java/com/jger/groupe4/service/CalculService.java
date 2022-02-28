@@ -21,4 +21,8 @@ public class CalculService {
     public Calcul getLast(){
         return  calculDao.lastOrNull();
     }
+
+    public void clearTable(){
+        calculDao.delete();
+    }
 }
